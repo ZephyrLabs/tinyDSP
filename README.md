@@ -6,9 +6,10 @@
  speedups.
 
 Current Implementations:
-    * [Convolution](src/libconv/)
-    * [Radix-2 FFT](src/libfft/)
-    * [FIR filter](src/libfilter/)
+
+* [Convolution](src/libconv/)
+* [Radix-2 FFT](src/libfft/)
+* [FIR filter](src/libfilter/)
 
 Along with custom optimized memory objects
-    * [FIFO ring buffer](src/libmem/fifo.h)
+* [FIFO ring buffer](src/libmem/fifo.h)
