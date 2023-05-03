@@ -18,7 +18,7 @@ default:
 # build libmem
 #(this might need fixing)
 	$(CC) $(CFLAGS) -c -o build/src/libmem/fifo/fifo.o build/src/libmem/fifo/fifo.c
-	$(CC) $(CFLAGS) -c -o build/src/libmem.o build/src/libmem/mem.c
+	$(CC) $(CFLAGS) -c -c -o build/src/libmem.o build/src/libmem/mem.c
 
 clean:
 	rm -rf build

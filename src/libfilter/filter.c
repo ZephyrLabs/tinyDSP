@@ -8,7 +8,9 @@
  * 
  */
 
+
 #include "filter.h"
+#include "../tinydsp_config.h"
 
 /**
  * @brief inplace filter mapping function 

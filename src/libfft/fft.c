@@ -8,8 +8,10 @@
  * 
  */
 
+
 #include "fft.h"
 #include "bitLUT.h"
+#include "../tinydsp_config.h"
 
 #include <math.h>
 #include <stdlib.h>

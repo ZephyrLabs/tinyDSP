@@ -9,9 +9,10 @@
  * 
  */
 
-#include <stdlib.h>
 
 #include "fifo.h"
+
+#include <stdlib.h>
 
 /**
  * @brief create a fixed point fifo buffer

@@ -9,10 +9,11 @@
  */
 
 
+#include "filter.h"
+#include "../../tinydsp_config.h"
+
 #include <stdlib.h>
 #include <math.h>
-
-#include "filter.h"
 
 #define PI 3.141592653
 
@@ -39,7 +40,7 @@ float* windowLowPass(int order, float fNyquist, float fCutoff){
         #ifdef FILTER_HANNING
             coeff[n] *= 0.5 - 0.5 * cos((2 * PI * n)/(order - 1));
         #endif
-        #ifdef FILTER_HANNING
+        #ifdef FILTER_HAMMING
             coeff[n] *= 0.54 - 0.46 * cos((2 * PI * n)/(order - 1));
         #endif
     }
@@ -70,7 +71,7 @@ float* windowHighPass(int order, float fNyquist, float fCutoff){
         #ifdef FILTER_HANNING
             coeff[n] *= 0.5 - 0.5 * cos((2 * PI * n)/(order - 1));
         #endif
-        #ifdef FILTER_HANNING
+        #ifdef FILTER_HAMMING
             coeff[n] *= 0.54 - 0.46 * cos((2 * PI * n)/(order - 1));
         #endif
     }
@@ -104,7 +105,7 @@ float* windowBandPass(int order, float fNyquist, float fCutLower, float fCutUppe
         #ifdef FILTER_HANNING
             coeff[n] *= 0.5 - 0.5 * cos((2 * PI * n)/(order - 1));
         #endif
-        #ifdef FILTER_HANNING
+        #ifdef FILTER_HAMMING
             coeff[n] *= 0.54 - 0.46 * cos((2 * PI * n)/(order - 1));
         #endif
     }

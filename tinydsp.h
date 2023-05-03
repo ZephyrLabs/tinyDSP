@@ -17,15 +17,4 @@
 #include "src/libfilter/filter.h"
 #include "src/libmem/mem.h"
 
-#define FILTER_HANNING 1
-#define FILTER_HAMMING 0
-
-// ARM NEON ISA platform config
-#define ENABLE_ARM_NEON 0
-
-#if ENABLE_ARM_NEON
-    #define ENABLE_NEON_FP16 0
-#endif
-
-
 #endif
