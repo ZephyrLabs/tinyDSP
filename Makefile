@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-lm
 
 default: src/libconv.o src/libfft.o src/libfilter.a src/libmem.a
-	ar rcs tinydsp.a src/libconv.o src/libfft.o src/libfilter.a src/libmem.a
+	ar rcs libtinydsp.a src/libconv.o src/libfft.o src/libfilter.a src/libmem.a
 # $(CC) -shared -o libtinydsp.so src/libconv.o src/libfft.o src/libfilter.o src/libmem.o
 
 src/libconv.o: #src/libconv/convolution.h convolution.c
@@ -23,4 +23,11 @@ src/libmem/fifo/fifo.o:
 	$(CC) $(CFLAGS) -fPIC -c -o src/libmem/fifo/fifo.o src/libmem/fifo/fifo.c
 
 clean:
-	rm -rf build
+	rm -rf *.o
+	rm -rf *.a
+	rm -rf src/*.o
+	rm -rf src/*.a
+	rm -rf src/libfilter/*.o
+	rm -rf src/libfilter/*.a
+	rm -rf src/libmem/fifo/*.o
+	rm -rf src/libmem/fifo/*.a

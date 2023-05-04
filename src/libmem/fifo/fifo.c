@@ -18,13 +18,17 @@
  * @brief create a fixed point fifo buffer
  * 
  * @param size size of the buffer
- * @return __fifoFixed fifo buffer handle
+ * @return __fifoFixed* fifo buffer handle
  */
-__fifoFixed FifoFixed(int size){
+__fifoFixed* FifoFixed(int size){
     
     int* fifoBuffer = (int*)malloc(size * sizeof(int));
 
-    __fifoFixed fifoObject = {fifoBuffer, size, 0};
+    __fifoFixed* fifoObject = malloc(sizeof(__fifoFixed));
+    fifoObject->fifoBuffer = fifoBuffer;
+    fifoObject->size = size;
+    fifoObject->ptr =  0;
+
     return fifoObject;
 }
 
@@ -32,13 +36,17 @@ __fifoFixed FifoFixed(int size){
  * @brief create a floating point fifo buffer
  * 
  * @param size size of the buffer
- * @return __fifoFloat fifo buffer handle
+ * @return __fifoFloat* fifo buffer handle
  */
-__fifoFloat FifoFloat(int size){
+__fifoFloat* FifoFloat(int size){
     
     float* fifoBuffer = (float*)malloc(size * sizeof(float));
 
-    __fifoFloat fifoObject = {fifoBuffer, size, 0};
+    __fifoFloat* fifoObject = malloc(sizeof(__fifoFloat));
+    fifoObject->fifoBuffer = fifoBuffer;
+    fifoObject->size = size;
+    fifoObject->ptr =  0;
+
     return fifoObject;
 }
 
@@ -51,7 +59,7 @@ __fifoFloat FifoFloat(int size){
  */
 int fifoFixedAt(__fifoFixed* fifoObject, int index){
     int ptr = index + fifoObject->ptr;
-    if(ptr >= fifoObject->size) ptr - fifoObject->size;
+    if(ptr >= fifoObject->size) ptr -= fifoObject->size;
 
     return fifoObject->fifoBuffer[ptr];
 }
@@ -65,7 +73,7 @@ int fifoFixedAt(__fifoFixed* fifoObject, int index){
  */
 float fifoFloatAt(__fifoFloat* fifoObject, int index){
     int ptr = index + fifoObject->ptr;
-    if(ptr >= fifoObject->size) ptr - fifoObject->size;
+    if(ptr >= fifoObject->size) ptr -= fifoObject->size;
 
     return fifoObject->fifoBuffer[ptr];
 }
@@ -77,9 +85,10 @@ float fifoFloatAt(__fifoFloat* fifoObject, int index){
  * @param data data to enqueue
  */
 void fifoFixedEnqueue(__fifoFixed* fifoObject, int data){
-    fifoObject->ptr++;
-    if(fifoObject->ptr == fifoObject->size) fifoObject->ptr - fifoObject->size;
     fifoObject->fifoBuffer[fifoObject->ptr] = data;
+    
+    fifoObject->ptr++;
+    if(fifoObject->ptr == fifoObject->size) fifoObject->ptr -= fifoObject->size;
 }
 
 /**
@@ -89,7 +98,8 @@ void fifoFixedEnqueue(__fifoFixed* fifoObject, int data){
  * @param data data to enqueue
  */
 void fifoFloatEnqueue(__fifoFloat* fifoObject, float data){
-    fifoObject->ptr++;
-    if(fifoObject->ptr == fifoObject->size) fifoObject->ptr - fifoObject->size;
     fifoObject->fifoBuffer[fifoObject->ptr] = data;
+
+    fifoObject->ptr++;
+    if(fifoObject->ptr == fifoObject->size) fifoObject->ptr -= fifoObject->size;
 }

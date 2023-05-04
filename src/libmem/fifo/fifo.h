@@ -25,8 +25,8 @@ typedef struct {
     int ptr;
 }__fifoFloat;
 
-__fifoFixed FifoFixed(int size);
-__fifoFloat FifoFloat(int size);
+__fifoFixed* FifoFixed(int size);
+__fifoFloat* FifoFloat(int size);
 
 int fifoFixedAt(__fifoFixed* fifoObject, int index);
 float fifoFloatAt(__fifoFloat* fifoObject, int index);
