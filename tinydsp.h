@@ -15,6 +15,6 @@
 #include "src/libconv/convolution.h"
 #include "src/libfft/fft.h"
 #include "src/libfilter/filter.h"
-#include "src/libmem/mem.h"
+#include "src/libmem/fifo/fifo.h"
 
 #endif

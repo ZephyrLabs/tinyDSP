@@ -9,7 +9,6 @@
  */
 
 #include "convolution.h"
-#include "../tinydsp_config.h"
 
 /**
  * @brief Fixed point convolution operation

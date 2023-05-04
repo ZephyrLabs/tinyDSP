@@ -1,24 +1,26 @@
 CC=gcc
 CFLAGS=-lm
 
-default:
-	mkdir build
-	cp src -r build/
-	cd build
+default: src/libconv.o src/libfft.o src/libfilter.a src/libmem.a
+	ar rcs tinydsp.a src/libconv.o src/libfft.o src/libfilter.a src/libmem.a
+# $(CC) -shared -o libtinydsp.so src/libconv.o src/libfft.o src/libfilter.o src/libmem.o
 
-# build libconv
-	$(CC) $(CFLAGS) -c -o build/src/libconv.o build/src/libconv/convolution.c
+src/libconv.o: #src/libconv/convolution.h convolution.c
+	$(CC) $(CFLAGS) -fPIC -c -o src/libconv.o src/libconv/convolution.c
 
-# build libfft
-	$(CC) $(CFLAGS) -c -o build/src/libfft.o build/src/libfft/fft.c
+src/libfft.o: #src/libfft/fft.h src/libfft/bitLUT.h src/libfft/fft.c
+	$(CC) $(CFLAGS) -fPIC -c -o src/libfft.o src/libfft/fft.c
 
-# build libfilter
-	$(CC) $(CFLAGS) -c -o build/src/libfilter.o build/src/libfilter/filter.c
+src/libfilter.a: #src/libfilter/filter.h
+	$(CC) $(CFLAGS) -fPIC -c -o src/libfilter/window.o src/libfilter/window.c
+	$(CC) $(CFLAGS) -fPIC -c -o src/libfilter/filter.o src/libfilter/filter.c
+	ar rcs src/libfilter.a src/libfilter/filter.o src/libfilter/window.o
 
-# build libmem
-#(this might need fixing)
-	$(CC) $(CFLAGS) -c -o build/src/libmem/fifo/fifo.o build/src/libmem/fifo/fifo.c
-	$(CC) $(CFLAGS) -c -c -o build/src/libmem.o build/src/libmem/mem.c
+src/libmem.a: src/libmem/fifo/fifo.o
+	ar rcs src/libmem.a src/libmem/fifo/fifo.o
+	
+src/libmem/fifo/fifo.o:
+	$(CC) $(CFLAGS) -fPIC -c -o src/libmem/fifo/fifo.o src/libmem/fifo/fifo.c
 
 clean:
 	rm -rf build

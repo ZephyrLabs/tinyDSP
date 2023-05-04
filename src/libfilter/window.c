@@ -10,12 +10,14 @@
 
 
 #include "filter.h"
-#include "../../tinydsp_config.h"
 
 #include <stdlib.h>
 #include <math.h>
 
 #define PI 3.141592653
+
+#define FILTER_HANNING 1
+#define FILTER_HAMMING 0
 
 /**
  * @brief Low pass FIR filter coefficent generator
