@@ -11,7 +11,7 @@
 #ifndef __CONVOLUTION_H__
 #define __CONVOLUTION_H__
 
-void convoluteFixed(int* y, int* x, int* h);
-void convoluteFloat(float* y, float* x, float* h);
+void convoluteFixed(int* y, int* x, int* h, int len_x, int len_h);
+void convoluteFloat(float* y, float* x, float* h, int len_x, int len_h);
 
 #endif
