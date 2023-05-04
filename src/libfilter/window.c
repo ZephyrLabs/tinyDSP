@@ -39,10 +39,10 @@ float* windowLowPass(int order, float fNyquist, float fCutoff){
         if(n == t) coeff[n] = fNormalized/PI;
         else coeff[n] = sin(fNormalized * (n - t))/(PI * (n - t));
 
-        #ifdef FILTER_HANNING
+        #if FILTER_HANNING
             coeff[n] *= 0.5 - 0.5 * cos((2 * PI * n)/(order - 1));
         #endif
-        #ifdef FILTER_HAMMING
+        #if FILTER_HAMMING
             coeff[n] *= 0.54 - 0.46 * cos((2 * PI * n)/(order - 1));
         #endif
     }
@@ -70,10 +70,10 @@ float* windowHighPass(int order, float fNyquist, float fCutoff){
         if(n == t) coeff[n] = 1 - fNormalized/PI;
         else coeff[n] = - sin(fNormalized * (n - t))/(PI * (n - t));
 
-        #ifdef FILTER_HANNING
+        #if FILTER_HANNING
             coeff[n] *= 0.5 - 0.5 * cos((2 * PI * n)/(order - 1));
         #endif
-        #ifdef FILTER_HAMMING
+        #if FILTER_HAMMING
             coeff[n] *= 0.54 - 0.46 * cos((2 * PI * n)/(order - 1));
         #endif
     }
@@ -104,10 +104,10 @@ float* windowBandPass(int order, float fNyquist, float fCutLower, float fCutUppe
         if(n == t) coeff[n] = (fNormalUpper - fNormalLower)/PI;
         else coeff[n] = (sin(fNormalUpper * (n - t)) - sin(fNormalLower * (n - t)))/(PI * (n - t));
 
-        #ifdef FILTER_HANNING
+        #if FILTER_HANNING
             coeff[n] *= 0.5 - 0.5 * cos((2 * PI * n)/(order - 1));
         #endif
-        #ifdef FILTER_HAMMING
+        #if FILTER_HAMMING
             coeff[n] *= 0.54 - 0.46 * cos((2 * PI * n)/(order - 1));
         #endif
     }
@@ -138,10 +138,10 @@ float* windowBandStop(int order, float fNyquist, float fCutLower, float fCutUppe
         if(n == t) coeff[n] = 1 - (fNormalUpper - fNormalLower)/PI;
         else coeff[n] = - (sin(fNormalUpper * (n - t)) - sin(fNormalLower * (n - t)))/(PI * (n - t));
 
-        #ifdef FILTER_HANNING
+        #if FILTER_HANNING
             coeff[n] *= 0.5 - 0.5 * cos((2 * PI * n)/(order - 1));
         #endif
-        #ifdef FILTER_HAMMING
+        #if FILTER_HAMMING
             coeff[n] *= 0.54 - 0.46 * cos((2 * PI * n)/(order - 1));
         #endif
     }
