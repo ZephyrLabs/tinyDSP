@@ -19,6 +19,6 @@ float* windowBandPass(int order, float fNyquist, float fCutLower, float fCutUppe
 float* windowBandStop(int order, float fNyquist, float fCutLower, float fCutUpper);
 
 /* filter implementation */
-void filter(float* inputSignal, float* filterCoefficient);
+void filter(float* inputSignal, float* filterCoefficient, int SignalLength, int CoefficientLength);
 
 #endif

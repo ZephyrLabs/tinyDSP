@@ -12,4 +12,4 @@ Current Implementations:
 * [FIR filter](src/libfilter/)
 
 Along with custom optimized memory objects
-* [FIFO ring buffer](src/libmem/fifo.h)
+* [FIFO ring buffer](src/libmem/fifo/fifo.h)

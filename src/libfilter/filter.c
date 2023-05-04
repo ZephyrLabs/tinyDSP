@@ -10,28 +10,29 @@
 
 
 #include "filter.h"
+#include "../libmem/fifo/fifo.h"
 
 /**
  * @brief inplace filter mapping function 
  * 
  * @param inputSignal input signal sequence
  * @param filterCoefficient designed filter coefficient sequence
+ * @param SignalLength input Signal Length
+ * @param CoefficientLength filter coefficient length
  */
-void filter(float* inputSignal, float* filterCoefficient){
+void filter(float* inputSignal, float* filterCoefficient, int SignalLength, int CoefficientLength){
 
-    int N = sizeof(filterCoefficient)/sizeof(float);
-    int n = sizeof(inputSignal)/sizeof(float);
+    int N = CoefficientLength;
 
-    float x[N];     // delay buffer
+    __fifoFloat* x = FifoFloat(N);     // delay buffer
     float y;    // impulse output
 
-    for(int i = 0; i < n; i++){
+    for(int i = 0; i < SignalLength; i++){
         y = 0;
 
-        x[0] = inputSignal[i];
+        fifoFloatEnqueue(x, inputSignal[i]);
 
-        for (int j = 0; j < N; j++) y += filterCoefficient[j] * x[j]; // filter MAC operation
-        for (int j = (N-1); j > 0; j--) x[j] = x[j-1]; // shift delay line 
+        for (int j = 0; j < N; j++) y += filterCoefficient[j] * fifoFloatAt(x, j); // filter MAC operation 
 
         inputSignal[i] = y;
     }
