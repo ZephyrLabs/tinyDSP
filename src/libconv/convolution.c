@@ -20,7 +20,9 @@
  * @param len_h length of the impulse response
  */
 void convoluteFixed(int* y, int* x, int* h, int len_x, int len_h){
-    for(int n = 0; n < len_x; n++){
+    int len_y = len_x + len_h - 1;
+    
+    for(int n = 0; n < len_y; n++){
         for(int k = 0; k < len_h; k++){
             if((n - k) >= 0 && (n - k) <= len_h){
                 y[n] = y[n] + (x[k] * h[n - k]);
@@ -39,7 +41,9 @@ void convoluteFixed(int* y, int* x, int* h, int len_x, int len_h){
  * @param len_h length of the impulse response
  */
 void convoluteFloat(float* y, float* x, float* h, int len_x, int len_h){
-    for(int n = 0; n < len_x; n++){
+    int len_y = len_x + len_h - 1;
+
+    for(int n = 0; n < len_y; n++){
         for(int k = 0; k < len_h; k++){
             if((n - k) >= 0 && (n - k) <= len_h){
                 y[n] = y[n] + (x[k] * h[n - k]);
