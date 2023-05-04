@@ -1,33 +1,31 @@
 CC=gcc
 CFLAGS=-lm
 
-default: src/libconv.o src/libfft.o src/libfilter.a src/libmem.a
-	ar rcs libtinydsp.a src/libconv.o src/libfft.o src/libfilter.a src/libmem.a
-# $(CC) -shared -o libtinydsp.so src/libconv.o src/libfft.o src/libfilter.o src/libmem.o
+SRC=src/libconv.o			\
+	src/libfft.o			\
+	src/filter.o			\
+	src/window.o			\
+	src/fifo.o
 
-src/libconv.o: #src/libconv/convolution.h convolution.c
-	$(CC) $(CFLAGS) -fPIC -c -o src/libconv.o src/libconv/convolution.c
+default: $(SRC)
+	ar rcs libtinydsp.a $(SRC)
+#$(CC) -shared -o $(SRC)
 
-src/libfft.o: #src/libfft/fft.h src/libfft/bitLUT.h src/libfft/fft.c
-	$(CC) $(CFLAGS) -fPIC -c -o src/libfft.o src/libfft/fft.c
+src/libconv.o:
+	$(CC) $(CFLAGS) -c -o src/libconv.o src/libconv/convolution.c
 
-src/libfilter.a: #src/libfilter/filter.h
-	$(CC) $(CFLAGS) -fPIC -c -o src/libfilter/window.o src/libfilter/window.c
-	$(CC) $(CFLAGS) -fPIC -c -o src/libfilter/filter.o src/libfilter/filter.c
-	ar rcs src/libfilter.a src/libfilter/filter.o src/libfilter/window.o
+src/libfft.o:
+	$(CC) $(CFLAGS) -c -o src/libfft.o src/libfft/fft.c
 
-src/libmem.a: src/libmem/fifo/fifo.o
-	ar rcs src/libmem.a src/libmem/fifo/fifo.o
-	
-src/libmem/fifo/fifo.o:
-	$(CC) $(CFLAGS) -fPIC -c -o src/libmem/fifo/fifo.o src/libmem/fifo/fifo.c
+src/filter.o:
+	$(CC) $(CFLAGS) -c -o src/filter.o src/libfilter/filter.c
+
+src/window.o:
+	$(CC) $(CFLAGS) -c -o src/window.o src/libfilter/window.c
+
+src/fifo.o:
+	$(CC) $(CFLAGS) -c -o src/fifo.o src/libmem/fifo/fifo.c
 
 clean:
-	rm -rf *.o
 	rm -rf *.a
 	rm -rf src/*.o
-	rm -rf src/*.a
-	rm -rf src/libfilter/*.o
-	rm -rf src/libfilter/*.a
-	rm -rf src/libmem/fifo/*.o
-	rm -rf src/libmem/fifo/*.a
